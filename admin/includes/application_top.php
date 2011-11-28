@@ -199,6 +199,10 @@
 
 // action recorder
   require(DIR_WS_CLASSES . 'action_recorder.php');
+  
+  if(file_exists(DIR_WS_FUNCTIONS . 'cleverreach.php')){
+   include(DIR_WS_FUNCTIONS . 'cleverreach.php');
+  }
 
 // calculate category path
   if (isset($HTTP_GET_VARS['cPath'])) {

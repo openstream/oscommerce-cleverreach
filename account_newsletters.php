@@ -33,6 +33,21 @@
     if ($newsletter_general != $newsletter['customers_newsletter']) {
       $newsletter_general = (($newsletter['customers_newsletter'] == '1') ? '0' : '1');
 
+//----------------------------- CleverReach Starts --------------------------------------
+
+     if(CR_ENABLED == 'true'){
+      $newsletter_query = tep_db_query("select customers_email_address from " . TABLE_CUSTOMERS . " where customers_id = '" . (int)$customer_id . "'");
+      $newsletter = tep_db_fetch_array($newsletter_query);
+      $client = new SoapClient('http://api.cleverreach.com/soap/interface_v4.1.php?wsdl');
+      if($newsletter['customers_newsletter'] == '1'){
+       $client->setInactive(CR_API_KEY, CR_LIST_ID, $newsletter['customers_email_address']);
+      }else{
+       $client->setActive(CR_API_KEY, CR_LIST_ID, $newsletter['customers_email_address']);
+      }
+     }
+
+//------------------------------ CleverReach Ends --------------------------------------
+
       tep_db_query("update " . TABLE_CUSTOMERS . " set customers_newsletter = '" . (int)$newsletter_general . "' where customers_id = '" . (int)$customer_id . "'");
     }
 
