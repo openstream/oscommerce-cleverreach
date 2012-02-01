@@ -9,7 +9,7 @@ The following osCommerce files need to be either overwritten or if they are not 
 3. account_newsletter.php
 4. admin/customers.php
 
-Those 4 files are included in this package.
+Those 4 files are included in this package along with a modified application_top.php and a new CleverReach function file.
 
 This package is subject to the Open Software License (OSL 3.0) which is available through the world-wide-web at this URL:
 
