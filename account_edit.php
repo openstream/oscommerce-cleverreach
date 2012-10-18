@@ -99,10 +99,10 @@
        }
        if($old_email_address != $email_address){
         $client->delete(CR_API_KEY, CR_LIST_ID, $old_email_address);
-        $crReceiver = array('email' => utf8_encode($email_address), 'source' => utf8_encode('SwissCart'), 'firstname' => utf8_encode($firstname), 'lastname' => utf8_encode($lastname));
+        $crReceiver = array('email' => utf8_encode($email_address), 'source' => utf8_encode('osCommerce'), 'firstname' => utf8_encode($firstname), 'lastname' => utf8_encode($lastname));
         $client->add(CR_API_KEY, CR_LIST_ID, $crReceiver);
        }else{
-        $crReceiver = array('email' => utf8_encode($email_address), 'source' => utf8_encode('SwissCart'), 'firstname' => utf8_encode($firstname), 'lastname' => utf8_encode($lastname));
+        $crReceiver = array('email' => utf8_encode($email_address), 'source' => utf8_encode('osCommerce'), 'firstname' => utf8_encode($firstname), 'lastname' => utf8_encode($lastname));
         $ret = $client->update(CR_API_KEY, CR_LIST_ID, $crReceiver);
        }
       }

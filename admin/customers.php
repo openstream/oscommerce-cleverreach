@@ -163,10 +163,10 @@
        }
        if($old_email_address != $customers_email_address){
         $client->delete(CR_API_KEY, CR_LIST_ID, $old_email_address);
-        $crReceiver = array('email' => utf8_encode($customers_email_address), 'source' => utf8_encode('SwissCart'), 'firstname' => utf8_encode($customers_firstname), 'lastname' => utf8_encode($customers_lastname), 'street' => utf8_encode($entry_street_address), 'zip' => utf8_encode($entry_postcode), 'city' => utf8_encode($entry_city), 'country' => utf8_encode($entry_country_id), 'company' => utf8_encode($entry_company));
+        $crReceiver = array('email' => utf8_encode($customers_email_address), 'source' => utf8_encode('osCommerce'), 'firstname' => utf8_encode($customers_firstname), 'lastname' => utf8_encode($customers_lastname), 'street' => utf8_encode($entry_street_address), 'zip' => utf8_encode($entry_postcode), 'city' => utf8_encode($entry_city), 'country' => utf8_encode($entry_country_id), 'company' => utf8_encode($entry_company));
         $client->add(CR_API_KEY, CR_LIST_ID, $crReceiver);
        }else{
-        $crReceiver = array('email' => utf8_encode($customers_email_address), 'source' => utf8_encode('SwissCart'), 'firstname' => utf8_encode($customers_firstname), 'lastname' => utf8_encode($customers_lastname), 'street' => utf8_encode($entry_street_address), 'zip' => utf8_encode($entry_postcode), 'city' => utf8_encode($entry_city), 'country' => utf8_encode($entry_country_id), 'company' => utf8_encode($entry_company));
+        $crReceiver = array('email' => utf8_encode($customers_email_address), 'source' => utf8_encode('osCommerce'), 'firstname' => utf8_encode($customers_firstname), 'lastname' => utf8_encode($customers_lastname), 'street' => utf8_encode($entry_street_address), 'zip' => utf8_encode($entry_postcode), 'city' => utf8_encode($entry_city), 'country' => utf8_encode($entry_country_id), 'company' => utf8_encode($entry_company));
         $client->update(CR_API_KEY, CR_LIST_ID, $crReceiver);
        }
        if($customers_newsletter){

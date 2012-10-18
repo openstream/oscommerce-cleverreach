@@ -25,7 +25,7 @@
    mysql_query($query);
    $query = 'INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_group_id, sort_order, configuration_description) VALUES ("API Key", "CR_API_KEY", "", '.$group_id.', 2, "This can be found on your List settings page in CleverReach.")';
    mysql_query($query);
-   $query = 'INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_group_id, sort_order, configuration_description) VALUES ("List ID", "CR_LIST_ID", "", '.$group_id.', 3, "SwissCart users who subscribe/unsubscribe to the newsletter will be added/removed from this CleverReach receiver list.")';
+   $query = 'INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_group_id, sort_order, configuration_description) VALUES ("List ID", "CR_LIST_ID", "", '.$group_id.', 3, "osCommerce users who subscribe/unsubscribe to the newsletter will be added/removed from this CleverReach receiver list.")';
    mysql_query($query);
   }
  }else{
