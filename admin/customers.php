@@ -153,28 +153,42 @@
 
 //----------------------------- CleverReach Starts --------------------------------------
 
-      if(CR_ENABLED == 'true'){
-       $client = new SoapClient('http://api.cleverreach.com/soap/interface_v4.1.php?wsdl');
-       // Check if email was changed and if so, delete old CleverReach record and create a new one.
-       $query = 'SELECT customers_email_address FROM '.TABLE_CUSTOMERS.' WHERE customers_id = '.(int)$customers_id;
-       $res = mysql_query($query);
-       if($res && mysql_num_rows($res)){
-        $old_email_address = mysql_result($res, 0, 0);
-       }
-       if($old_email_address != $customers_email_address){
-        $client->delete(CR_API_KEY, CR_LIST_ID, $old_email_address);
-        $crReceiver = array('email' => utf8_encode($customers_email_address), 'source' => utf8_encode('osCommerce'), 'firstname' => utf8_encode($customers_firstname), 'lastname' => utf8_encode($customers_lastname), 'street' => utf8_encode($entry_street_address), 'zip' => utf8_encode($entry_postcode), 'city' => utf8_encode($entry_city), 'country' => utf8_encode($entry_country_id), 'company' => utf8_encode($entry_company));
-        $client->add(CR_API_KEY, CR_LIST_ID, $crReceiver);
-       }else{
-        $crReceiver = array('email' => utf8_encode($customers_email_address), 'source' => utf8_encode('osCommerce'), 'firstname' => utf8_encode($customers_firstname), 'lastname' => utf8_encode($customers_lastname), 'street' => utf8_encode($entry_street_address), 'zip' => utf8_encode($entry_postcode), 'city' => utf8_encode($entry_city), 'country' => utf8_encode($entry_country_id), 'company' => utf8_encode($entry_company));
-        $client->update(CR_API_KEY, CR_LIST_ID, $crReceiver);
-       }
-       if($customers_newsletter){
-        $client->setActive(CR_API_KEY, CR_LIST_ID, utf8_encode($customers_email_address));
-       }else{
-        $client->setInactive(CR_API_KEY, CR_LIST_ID, utf8_encode($customers_email_address));
-       }
-      }
+          if(CR_ENABLED == 'true'){
+              $client = new SoapClient('http://cleverreach.openstream.ch/soap/interface_v5.1.php?wsdl');
+              // Check if email was changed and if so, delete old CleverReach record and create a new one.
+              $query = 'SELECT customers_email_address FROM '.TABLE_CUSTOMERS.' WHERE customers_id = '.(int)$customers_id;
+              $res = mysql_query($query);
+              if($res && mysql_num_rows($res)){
+                  $old_email_address = mysql_result($res, 0, 0);
+              }
+              if($old_email_address != $customers_email_address){
+                  $client->receiverDelete(CR_API_KEY, CR_LIST_ID, $old_email_address);
+                  $crReceiver = array(
+                      'email' => utf8_encode($customers_email_address),
+                      'source' => utf8_encode('SwissCart'),
+                      'attributes' => array(
+                          0 => array('key' => 'firstname', 'value' => utf8_encode($customers_firstname)),
+                          1 => array('key' => 'lastname', 'value' => utf8_encode($customers_lastname))
+                      )
+                  );
+                  $client->receiverAdd(CR_API_KEY, CR_LIST_ID, $crReceiver);
+              }else{
+                  $crReceiver = array(
+                      'email' => utf8_encode($customers_email_address),
+                      'source' => utf8_encode('SwissCart'),
+                      'attributes' => array(
+                          0 => array('key' => 'firstname', 'value' => utf8_encode($customers_firstname)),
+                          1 => array('key' => 'lastname', 'value' => utf8_encode($customers_lastname))
+                      )
+                  );
+                  $client->receiverUpdate(CR_API_KEY, CR_LIST_ID, $crReceiver);
+              }
+              if($customers_newsletter){
+                  $client->receiverSetActive(CR_API_KEY, CR_LIST_ID, utf8_encode($customers_email_address));
+              }else{
+                  $client->receiverSetInactive(CR_API_KEY, CR_LIST_ID, utf8_encode($customers_email_address));
+              }
+          }
 
 //------------------------------ CleverReach Ends --------------------------------------
 
@@ -240,14 +254,14 @@
 
 //----------------------------- CleverReach Starts --------------------------------------
 
-      if(CR_ENABLED == 'true'){
-       $client = new SoapClient('http://api.cleverreach.com/soap/interface_v4.1.php?wsdl');
-       $query = 'SELECT customers_email_address FROM '.TABLE_CUSTOMERS.' WHERE customers_id = '.(int)$customers_id;
-       $res = mysql_query($query);
-       if($res && mysql_num_rows($res)){
-        $client->delete(CR_API_KEY, CR_LIST_ID, mysql_result($res, 0, 0));
-       }
-      }
+          if(CR_ENABLED == 'true'){
+              $client = new SoapClient('http://cleverreach.openstream.ch/soap/interface_v5.1.php?wsdl');
+              $query = 'SELECT customers_email_address FROM '.TABLE_CUSTOMERS.' WHERE customers_id = '.(int)$customers_id;
+              $res = mysql_query($query);
+              if($res && mysql_num_rows($res)){
+                  $client->receiverDelete(CR_API_KEY, CR_LIST_ID, mysql_result($res, 0, 0));
+              }
+          }
 
 //------------------------------ CleverReach Ends --------------------------------------
 

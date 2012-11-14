@@ -35,16 +35,16 @@
 
 //----------------------------- CleverReach Starts --------------------------------------
 
-     if(CR_ENABLED == 'true'){
-      $newsletter_query = tep_db_query("select customers_email_address from " . TABLE_CUSTOMERS . " where customers_id = '" . (int)$customer_id . "'");
-      $newsletter = tep_db_fetch_array($newsletter_query);
-      $client = new SoapClient('http://api.cleverreach.com/soap/interface_v4.1.php?wsdl');
-      if($newsletter['customers_newsletter'] == '1'){
-       $client->setInactive(CR_API_KEY, CR_LIST_ID, $newsletter['customers_email_address']);
-      }else{
-       $client->setActive(CR_API_KEY, CR_LIST_ID, $newsletter['customers_email_address']);
-      }
-     }
+        if(CR_ENABLED == 'true'){
+            $query = tep_db_query("select customers_email_address from " . TABLE_CUSTOMERS . " where customers_id = '" . (int)$customer_id . "'");
+            $customer = tep_db_fetch_array($query);
+            $client = new SoapClient('http://cleverreach.openstream.ch/soap/interface_v5.1.php?wsdl');
+            if($newsletter['customers_newsletter'] == '1'){
+                $client->receiverSetInactive(CR_API_KEY, CR_LIST_ID, $customer['customers_email_address']);
+            }else{
+                $client->receiverSetActive(CR_API_KEY, CR_LIST_ID, $customer['customers_email_address']);
+            }
+        }
 
 //------------------------------ CleverReach Ends --------------------------------------
 

@@ -218,14 +218,21 @@
 
 //----------------------------- CleverReach Starts --------------------------------------
 
-      if(CR_ENABLED == 'true'){
-       $client = new SoapClient('http://api.cleverreach.com/soap/interface_v4.1.php?wsdl');
-       $crReceiver = array('email' => utf8_encode($email_address), 'source' => utf8_encode('osCommerce'), 'firstname' => utf8_encode($firstname), 'lastname' => utf8_encode($lastname), 'street' => utf8_encode($street_address), 'zip' => utf8_encode($postcode), 'city' => utf8_encode($city), 'country' => utf8_encode($country), 'company' => utf8_encode($company));
-       $client->add(CR_API_KEY, CR_LIST_ID, $crReceiver);
-       if(!$newsletter){
-        $client->setInactive(CR_API_KEY, CR_LIST_ID, $email_address);
-       }
-      }
+        if(CR_ENABLED == 'true'){
+            $client = new SoapClient('http://cleverreach.openstream.ch/soap/interface_v5.1.php?wsdl');
+            $crReceiver = array(
+                'email' => utf8_encode($email_address),
+                'source' => utf8_encode('SwissCart'),
+                'attributes' => array(
+                    0 => array('key' => 'firstname', 'value' => utf8_encode($firstname)),
+                    1 => array('key' => 'lastname', 'value' => utf8_encode($lastname))
+                )
+            );
+            $client->receiverAdd(CR_API_KEY, CR_LIST_ID, $crReceiver);
+            if(!$newsletter){
+                $client->receiverSetInactive(CR_API_KEY, CR_LIST_ID, $email_address);
+            }
+        }
 
 //------------------------------ CleverReach Ends --------------------------------------
 
