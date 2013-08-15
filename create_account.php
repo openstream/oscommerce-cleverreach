@@ -219,7 +219,7 @@
 //----------------------------- CleverReach Starts --------------------------------------
 
         if(CR_ENABLED == 'true'){
-            $client = new SoapClient('http://cleverreach.openstream.ch/soap/interface_v5.1.php?wsdl');
+            $client = new SoapClient('http://api.cleverreach.com/soap/interface_v5.1.php?wsdl');
             $crReceiver = array(
                 'email' => utf8_encode($email_address),
                 'source' => utf8_encode('SwissCart'),

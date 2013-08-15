@@ -38,7 +38,7 @@
         if(CR_ENABLED == 'true'){
             $query = tep_db_query("select customers_email_address from " . TABLE_CUSTOMERS . " where customers_id = '" . (int)$customer_id . "'");
             $customer = tep_db_fetch_array($query);
-            $client = new SoapClient('http://cleverreach.openstream.ch/soap/interface_v5.1.php?wsdl');
+            $client = new SoapClient('http://api.cleverreach.com/soap/interface_v5.1.php?wsdl');
             if($newsletter['customers_newsletter'] == '1'){
                 $client->receiverSetInactive(CR_API_KEY, CR_LIST_ID, $customer['customers_email_address']);
             }else{
